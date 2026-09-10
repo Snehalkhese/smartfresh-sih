@@ -1,0 +1,6836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartFresh | Intelligent Milk Freshness</title>
+
+
+<style>
+
+:root {
+
+    --bg: #f5f8f5;
+    --white: #ffffff;
+
+    --green: #174b35;
+    --green-dark: #103a29;
+    --green-soft: #dce9e1;
+
+    --text: #17221d;
+    --muted: #66736c;
+
+    --border: #dce5df;
+
+    --fresh: #253a91;
+    --pink: #c34c8c;
+    --spoiled: #d92727;
+
+    --shadow: 0 18px 50px rgba(23, 50, 37, 0.08);
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: var(--bg);
+
+    color: var(--text);
+
+    line-height: 1.6;
+
+}
+
+
+a {
+
+    color: inherit;
+    text-decoration: none;
+
+}
+
+
+button,
+input {
+
+    font: inherit;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navbar {
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(255,255,255,0.94);
+
+    backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.nav-inner {
+
+    max-width: 1180px;
+    margin: auto;
+
+    min-height: 76px;
+
+    padding: 0 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.brand {
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+}
+
+
+.brand-mark {
+
+    width: 38px;
+    height: 38px;
+
+    border-radius: 11px;
+
+    background: var(--green);
+
+    display: grid;
+
+    place-items: center;
+
+    overflow: hidden;
+
+}
+
+
+.brand-mark img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+}
+
+
+.brand-text strong {
+
+    display: block;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+
+}
+
+
+.brand-text span {
+
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+
+}
+
+
+.nav-links {
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 14px;
+    color: #435048;
+
+}
+
+
+.nav-links a:hover {
+
+    color: var(--green);
+
+}
+
+
+.nav-scan {
+
+    background: var(--green);
+    color: white !important;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-weight: bold;
+
+}
+
+
+.nav-scan:hover {
+
+    background: var(--green-dark);
+
+}
+
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
+.container {
+
+    width: min(1120px, calc(100% - 48px));
+    margin: auto;
+
+}
+
+
+.section {
+
+    padding: 105px 0;
+
+}
+
+
+.eyebrow {
+
+    display: inline-block;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+
+}
+
+
+.section-heading {
+
+    max-width: 700px;
+    margin-bottom: 55px;
+
+}
+
+
+.section-heading.center {
+
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+}
+
+
+.section-heading h2 {
+
+    font-size: clamp(34px,5vw,52px);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    margin-bottom: 18px;
+
+}
+
+
+.section-heading p {
+
+    color: var(--muted);
+    font-size: 17px;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-button,
+.secondary-button {
+
+    min-height: 48px;
+    padding: 0 21px;
+    border-radius: 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+}
+
+
+.primary-button {
+
+    background: var(--green);
+    color: white;
+    border: none;
+
+}
+
+
+.primary-button:hover {
+
+    background: var(--green-dark);
+    transform: translateY(-2px);
+
+}
+
+
+.secondary-button {
+
+    background: white;
+    color: var(--text);
+    border: 1px solid var(--border);
+
+}
+
+
+.secondary-button:hover {
+
+    border-color: #b8c8be;
+    transform: translateY(-2px);
+
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+
+    min-height: calc(100vh - 76px);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+}
+
+
+.hero::before {
+
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    right: -190px;
+    top: -180px;
+    background: var(--green-soft);
+    opacity: 0.65;
+
+}
+
+
+.hero-grid {
+
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    gap: 80px;
+    align-items: center;
+
+}
+
+
+.hero-copy h1 {
+
+    max-width: 720px;
+    font-size: clamp(54px,7vw,88px);
+    line-height: 0.98;
+    letter-spacing: -0.065em;
+    margin-bottom: 26px;
+
+}
+
+
+.hero-copy h1 span {
+
+    color: var(--green);
+
+}
+
+
+.hero-copy .lead {
+
+    max-width: 640px;
+    color: var(--muted);
+    font-size: 19px;
+    line-height: 1.75;
+    margin-bottom: 34px;
+
+}
+
+
+.hero-actions {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 42px;
+
+}
+
+
+.hero-points {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    color: #4f5d55;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+
+}
+
+
+.hero-points span::before {
+
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 8px;
+
+}
+
+
+/* =========================================================
+   HERO SENSOR VISUAL
+   ========================================================= */
+
+.hero-visual {
+
+    position: relative;
+    min-height: 450px;
+    display: grid;
+    place-items: center;
+
+}
+
+
+.sensor-card {
+
+    width: min(100%,430px);
+    min-height: 430px;
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: rgba(255,255,255,0.84);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+
+}
+
+
+.sensor-top {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+}
+
+
+.sensor-label {
+
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: bold;
+    color: var(--muted);
+    text-transform: uppercase;
+
+}
+
+
+.live-dot {
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--green);
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+
+
+.live-dot i {
+
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3d8b67;
+
+}
+
+
+.sensor-display {
+
+    min-height: 235px;
+    border-radius: 17px;
+    background: #f3f6f3;
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+
+}
+
+
+/* =========================================================
+   PROTOTYPE PHOTO
+   ========================================================= */
+
+.prototype-photo {
+
+    width: 100%;
+    height: 235px;
+    object-fit: contain;
+    display: block;
+    position: relative;
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   SENSOR INFO
+   ========================================================= */
+
+.sensor-info {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+
+}
+
+
+.mini-stat {
+
+    padding: 14px;
+    border-radius: 12px;
+    background: var(--green-soft);
+
+}
+
+
+.mini-stat span {
+
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+
+}
+
+
+.mini-stat strong {
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   TECHNOLOGY
+   MATURE / PROFESSIONAL SECOND PAGE
+   ========================================================= */
+
+.technology {
+
+    background: #f5f8f5;
+
+    min-height: calc(100vh - 76px);
+
+    display: flex;
+
+    align-items: center;
+
+    border-top: 1px solid var(--border);
+
+    border-bottom: none;
+
+}
+
+
+.technology .container {
+
+    width: min(1120px, calc(100% - 48px));
+
+    margin: auto;
+
+}
+
+
+/* ---------------------------------------------------------
+   TECHNOLOGY HEADER
+   --------------------------------------------------------- */
+
+.technology .section-heading {
+
+    max-width: 900px;
+
+    margin: 0 auto 58px;
+
+    text-align: center;
+
+}
+
+
+.technology .section-heading .eyebrow {
+
+    display: none;
+
+}
+
+
+.technology .section-heading h2 {
+
+    font-size: clamp(40px, 5vw, 52px);
+
+    line-height: 1.08;
+
+    letter-spacing: -0.045em;
+
+    margin-bottom: 20px;
+
+    color: var(--text);
+
+}
+
+
+.technology .section-heading p {
+
+    max-width: 820px;
+
+    margin: 0 auto;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+}
+
+
+/* ---------------------------------------------------------
+   TECHNOLOGY GRID
+   --------------------------------------------------------- */
+
+.technology .tech-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+
+    background: transparent;
+
+    border: none;
+
+}
+
+
+/* ---------------------------------------------------------
+   TECHNOLOGY CARDS
+   --------------------------------------------------------- */
+
+.technology .tech-card {
+
+    background: #ffffff;
+
+    min-height: 250px;
+
+    padding: 31px 30px 34px;
+
+    border-radius: 14px;
+
+    border: 1px solid #dfe7e2;
+
+    box-shadow: 0 10px 28px rgba(23, 50, 37, 0.055);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+
+}
+
+
+/* subtle green top line */
+
+.technology .tech-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    background: var(--green);
+
+    opacity: 0.8;
+
+}
+
+
+/* card hover */
+
+.technology .tech-card:hover {
+
+    transform: translateY(-6px);
+
+    border-color: #bfd1c5;
+
+    box-shadow:
+        0 18px 38px rgba(23, 50, 37, 0.11);
+
+    background: #ffffff;
+
+}
+
+
+/* ---------------------------------------------------------
+   PROFESSIONAL NUMBER BOX
+   --------------------------------------------------------- */
+
+.technology .tech-number {
+
+    width: 38px;
+
+    height: 38px;
+
+    margin-bottom: 31px;
+
+    border-radius: 9px;
+
+    background: #edf3ef;
+
+    border: 1px solid #d8e4dc;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: var(--green);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+
+}
+
+
+/* remove old emojis */
+
+.technology .tech-number::before {
+
+    font-size: 0 !important;
+
+    content: none !important;
+
+}
+
+
+/* professional numbering */
+
+.technology .tech-card:nth-child(1) .tech-number::after {
+
+    content: "01";
+
+}
+
+
+.technology .tech-card:nth-child(2) .tech-number::after {
+
+    content: "02";
+
+}
+
+
+.technology .tech-card:nth-child(3) .tech-number::after {
+
+    content: "03";
+
+}
+
+
+/* ---------------------------------------------------------
+   CARD TITLES
+   --------------------------------------------------------- */
+
+.technology .tech-card h3 {
+
+    font-size: 21px;
+
+    line-height: 1.3;
+
+    letter-spacing: -0.015em;
+
+    margin-bottom: 12px;
+
+    color: var(--text);
+
+}
+
+
+.technology .tech-card p {
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin: 0;
+
+    max-width: 260px;
+
+}
+
+
+/* ---------------------------------------------------------
+   CARD ACTION
+   --------------------------------------------------------- */
+
+.technology .tech-card::after {
+
+    content: "EXPLORE  →";
+
+    position: absolute;
+
+    right: 25px;
+
+    bottom: 21px;
+
+    color: var(--green);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+    opacity: 0;
+
+    transform: translateY(5px);
+
+    transition: 0.25s ease;
+
+}
+
+
+.technology .tech-card:hover::after {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+/* =========================================================
+   TECHNOLOGY INFORMATION MODAL
+   ========================================================= */
+
+.tech-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(16, 37, 27, 0.58);
+
+    backdrop-filter: blur(7px);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    z-index: 20000;
+
+}
+
+
+.tech-modal.active {
+
+    display: flex;
+
+}
+
+
+.tech-modal-box {
+
+    width: min(700px, 100%);
+
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 22px;
+
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+
+    position: relative;
+
+    padding: 42px;
+
+    animation: modalAppear 0.25s ease;
+
+}
+
+
+@keyframes modalAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px) scale(0.97);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0) scale(1);
+
+    }
+
+}
+
+
+.tech-modal-close {
+
+    position: absolute;
+
+    top: 18px;
+
+    right: 20px;
+
+    width: 40px;
+
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #eef4ef;
+
+    color: var(--green);
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    display: grid;
+
+    place-items: center;
+
+    transition: 0.2s ease;
+
+}
+
+
+.tech-modal-close:hover {
+
+    background: var(--green);
+
+    color: white;
+
+    transform: rotate(90deg);
+
+}
+
+
+.tech-modal-icon {
+
+    width: 54px;
+
+    height: 54px;
+
+    border-radius: 14px;
+
+    background: #edf3ef;
+
+    border: 1px solid #d8e4dc;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 0;
+
+    margin-bottom: 21px;
+
+}
+
+
+/* professional popup label */
+
+.tech-modal-icon::after {
+
+    content: "TECH";
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+}
+
+
+.tech-modal-box h3 {
+
+    font-size: 30px;
+
+    line-height: 1.15;
+
+    letter-spacing: -0.025em;
+
+    margin-bottom: 13px;
+
+    color: var(--text);
+
+}
+
+
+.tech-modal-intro {
+
+    color: var(--muted);
+
+    font-size: 15px;
+
+    line-height: 1.75;
+
+    margin-bottom: 28px;
+
+}
+
+
+.tech-detail {
+
+    border-top: 1px solid var(--border);
+
+    padding: 20px 0;
+
+}
+
+
+.tech-detail:last-child {
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.tech-detail h4 {
+
+    font-size: 16px;
+
+    margin-bottom: 7px;
+
+    color: var(--green);
+
+}
+
+
+.tech-detail p {
+
+    color: #4d5b53;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+.tech-process {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #edf3ef;
+
+    border: 1px solid #d6e2da;
+
+    border-radius: 13px;
+
+}
+
+
+.tech-process strong {
+
+    display: block;
+
+    color: var(--green);
+
+    margin-bottom: 10px;
+
+    font-size: 13px;
+
+}
+
+
+.tech-process span {
+
+    font-size: 13px;
+
+    color: #405047;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================================
+   SMARTFRESH SYSTEM ARCHITECTURE
+   ========================================================= */
+
+.workflow {
+
+    background: #f5f8f5;
+
+    padding: 105px 0 110px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+.workflow .container {
+
+    width: min(1120px, calc(100% - 48px));
+
+    margin: auto;
+
+}
+
+
+/* ---------------------------------------------------------
+   SECTION HEADER
+   --------------------------------------------------------- */
+
+.workflow-heading {
+
+    max-width: 850px;
+
+    margin: 0 auto 65px;
+
+    text-align: center;
+
+}
+
+
+.workflow-heading .workflow-kicker {
+
+    display: inline-block;
+
+    margin-bottom: 17px;
+
+    color: var(--green);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.18em;
+
+    text-transform: uppercase;
+
+}
+
+
+.workflow-heading h2 {
+
+    font-size: clamp(38px, 5vw, 54px);
+
+    line-height: 1.08;
+
+    letter-spacing: -0.045em;
+
+    color: var(--text);
+
+    margin: 0 0 20px;
+
+}
+
+
+.workflow-heading p {
+
+    max-width: 760px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    font-size: 17px;
+
+    line-height: 1.75;
+
+}
+
+
+/* ---------------------------------------------------------
+   SYSTEM OVERVIEW
+   --------------------------------------------------------- */
+
+.system-overview {
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow: 0 18px 50px rgba(23, 50, 37, 0.07);
+
+    overflow: hidden;
+
+}
+
+
+/* ---------------------------------------------------------
+   SYSTEM HEADER
+   --------------------------------------------------------- */
+
+.system-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px 28px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: #fbfcfb;
+
+}
+
+
+.system-header-title {
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+    color: var(--green);
+
+}
+
+
+.system-header-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    color: var(--muted);
+
+}
+
+
+.system-header-status::before {
+
+    content: "";
+
+    width: 7px;
+
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #3d8b67;
+
+}
+
+
+/* ---------------------------------------------------------
+   PROCESS GRID
+   --------------------------------------------------------- */
+
+.system-process {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        45px
+        1fr
+        45px
+        1fr;
+
+    align-items: stretch;
+
+    padding: 30px;
+
+    gap: 0;
+
+}
+
+
+/* ---------------------------------------------------------
+   SYSTEM STAGE
+   --------------------------------------------------------- */
+
+.system-stage {
+
+    min-height: 245px;
+
+    padding: 27px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    position: relative;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+.system-stage:hover {
+
+    transform: translateY(-5px);
+
+    border-color: #bfd2c6;
+
+    box-shadow:
+        0 15px 35px rgba(23, 50, 37, 0.10);
+
+}
+
+
+/* ---------------------------------------------------------
+   STAGE NUMBER
+   --------------------------------------------------------- */
+
+.system-stage-number {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 27px;
+
+}
+
+
+.system-stage-number span {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 9px;
+
+    background: var(--green-soft);
+
+    color: var(--green);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+}
+
+
+.system-stage-number small {
+
+    color: #98a69f;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.13em;
+
+    text-transform: uppercase;
+
+}
+
+
+/* ---------------------------------------------------------
+   STAGE ICON
+   --------------------------------------------------------- */
+
+.system-stage-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    margin-bottom: 20px;
+
+    border-radius: 13px;
+
+    display: grid;
+
+    place-items: center;
+
+    background: #f0f5f2;
+
+    color: var(--green);
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.04em;
+
+}
+
+
+/* ---------------------------------------------------------
+   STAGE TEXT
+   --------------------------------------------------------- */
+
+.system-stage h3 {
+
+    margin: 0 0 10px;
+
+    font-size: 20px;
+
+    line-height: 1.25;
+
+    color: var(--text);
+
+}
+
+
+.system-stage p {
+
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.65;
+
+}
+
+
+/* ---------------------------------------------------------
+   CONNECTION
+   --------------------------------------------------------- */
+
+.system-connector {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+}
+
+
+.system-connector::before {
+
+    content: "";
+
+    width: 100%;
+
+    height: 1px;
+
+    background: #c9d7cf;
+
+}
+
+
+.system-connector::after {
+
+    content: "›";
+
+    position: absolute;
+
+    right: -1px;
+
+    color: var(--green);
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    background: #f5f8f5;
+
+    padding-left: 4px;
+
+}
+
+
+/* ---------------------------------------------------------
+   TECHNICAL PATHWAY
+   --------------------------------------------------------- */
+
+.system-pathway {
+
+    margin: 0 30px 30px;
+
+    padding: 23px 25px;
+
+    border-radius: 14px;
+
+    background: var(--green-soft);
+
+    border: 1px solid #cfddd5;
+
+}
+
+
+.system-pathway-label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--green);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+}
+
+
+.system-pathway-text {
+
+    color: #405047;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+.system-pathway-text strong {
+
+    color: var(--text);
+
+}
+
+
+/* ---------------------------------------------------------
+   FINAL RESULT
+   --------------------------------------------------------- */
+
+.workflow-result {
+
+    margin: 0 30px 30px;
+
+    padding: 27px 30px;
+
+    border-radius: 16px;
+
+    background: #10251b;
+
+    color: white;
+
+    display: grid;
+
+    grid-template-columns: auto 1fr auto;
+
+    align-items: center;
+
+    gap: 22px;
+
+}
+
+
+.workflow-result-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.10);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 20px;
+
+    color: #c8d8d0;
+
+}
+
+
+.workflow-result-copy h3 {
+
+    margin: 0 0 5px;
+
+    font-size: 19px;
+
+    line-height: 1.25;
+
+}
+
+
+.workflow-result-copy p {
+
+    margin: 0;
+
+    color: #b8c9c0;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.workflow-result-value {
+
+    text-align: right;
+
+}
+
+
+.workflow-result-value strong {
+
+    display: block;
+
+    color: white;
+
+    font-size: 15px;
+
+    margin-bottom: 3px;
+
+}
+
+
+.workflow-result-value span {
+
+    color: #a8cbb9;
+
+    font-size: 10px;
+
+    letter-spacing: 0.10em;
+
+    text-transform: uppercase;
+
+}
+
+
+/* =========================================================
+   SCIENCE
+   ========================================================= */
+
+.science {
+
+    background: var(--green);
+    color: white;
+
+}
+
+
+.science .eyebrow {
+
+    color: #a8cbb9;
+
+}
+
+
+.science-grid {
+
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 90px;
+
+}
+
+
+.science h2 {
+
+    font-size: clamp(36px,5vw,58px);
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+    margin-bottom: 20px;
+
+}
+
+
+.science-intro {
+
+    color: #c8d8d0;
+    font-size: 16px;
+    line-height: 1.75;
+
+}
+
+
+.science-flow {
+
+    border-top: 1px solid rgba(255,255,255,0.18);
+
+}
+
+
+.science-row {
+
+    display: grid;
+    grid-template-columns: 55px 1fr;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+
+}
+
+
+.science-row span {
+
+    color: #a8cbb9;
+    font-size: 12px;
+    font-weight: bold;
+
+}
+
+
+.science-row strong {
+
+    display: block;
+    font-size: 17px;
+    margin-bottom: 4px;
+
+}
+
+
+.science-row p {
+
+    color: #c8d8d0;
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   SCANNER
+   ========================================================= */
+
+.scanner-section {
+
+    background: white;
+    border-top: 1px solid var(--border);
+
+}
+
+
+.scanner-layout {
+
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+
+}
+
+
+.scanner-panel,
+.instructions-panel {
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 12px 35px rgba(23,50,37,0.06);
+
+}
+
+
+.scanner-panel {
+
+    padding: 22px;
+
+}
+
+
+.scanner-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+
+}
+
+
+.scanner-header h3 {
+
+    font-size: 20px;
+
+}
+
+
+.scanner-status {
+
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: bold;
+
+}
+
+
+.camera-area {
+
+    position: relative;
+    width: 100%;
+    min-height: 390px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #111715;
+    display: grid;
+    place-items: center;
+
+}
+
+
+#camera,
+#capturedImage {
+
+    display: none;
+    width: 100%;
+    height: 390px;
+    object-fit: cover;
+
+}
+
+
+#canvas {
+
+    display: none;
+
+}
+
+
+.camera-placeholder {
+
+    color: #c7d1cc;
+    text-align: center;
+    padding: 30px;
+
+}
+
+
+.camera-symbol {
+
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 17px;
+    border: 1px solid #53625b;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+
+}
+
+
+.camera-placeholder strong {
+
+    display: block;
+    color: white;
+    margin-bottom: 5px;
+    font-size: 17px;
+
+}
+
+
+.camera-placeholder span {
+
+    font-size: 13px;
+
+}
+
+
+.scan-guide {
+
+    position: absolute;
+    width: 260px;
+    height: 160px;
+    border: 1px dashed rgba(255,255,255,0.75);
+    border-radius: 15px;
+    display: none;
+    pointer-events: none;
+
+}
+
+
+.scan-guide::after {
+
+    content: "PLACE SENSOR HERE";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -28px;
+    white-space: nowrap;
+    color: white;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    font-weight: bold;
+
+}
+
+
+.scanner-actions {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+
+}
+
+
+.scanner-actions .primary-button,
+.scanner-actions .secondary-button {
+
+    flex: 1;
+    min-width: 145px;
+
+}
+
+
+.upload-label {
+
+    cursor: pointer;
+
+}
+
+
+#imageUpload {
+
+    display: none;
+
+}
+
+
+/* =========================================================
+   INSTRUCTIONS
+   ========================================================= */
+
+.instructions-panel {
+
+    padding: 32px;
+
+}
+
+
+.instructions-panel h3 {
+
+    font-size: 22px;
+    margin-bottom: 10px;
+
+}
+
+
+.instructions-panel > p {
+
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+
+}
+
+
+.instruction {
+
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+    padding: 17px 0;
+    border-top: 1px solid var(--border);
+
+}
+
+
+.instruction-number {
+
+    color: var(--green);
+    font-size: 12px;
+    font-weight: bold;
+
+}
+
+
+.instruction strong {
+
+    display: block;
+    font-size: 14px;
+    margin-bottom: 3px;
+
+}
+
+
+.instruction p {
+
+    color: var(--muted);
+    font-size: 13px;
+
+}
+
+
+.prototype-note {
+
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--green-soft);
+    color: #526158;
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+#scanResult {
+
+    display: none;
+    margin-top: 30px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: white;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+
+}
+
+
+.result-top {
+
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+.result-label {
+
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+
+}
+
+
+#resultTitle {
+
+    font-size: 26px;
+
+}
+
+
+.result-indicator {
+
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 5px solid #edf1ee;
+    background: var(--fresh);
+
+}
+
+
+.result-main {
+
+    padding: 30px 28px;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 30px;
+    align-items: center;
+
+}
+
+
+.freshness-number {
+
+    font-size: 76px;
+    line-height: 0.9;
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    color: var(--green);
+
+}
+
+
+.freshness-caption {
+
+    color: var(--muted);
+    margin-top: 8px;
+    font-size: 13px;
+
+}
+
+
+.result-details p {
+
+    margin-bottom: 9px;
+    color: #4c5a52;
+    font-size: 14px;
+
+}
+
+
+.result-details strong {
+
+    color: var(--text);
+
+}
+
+
+.confidence-track {
+
+    height: 7px;
+    background: #e9eeeb;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 17px;
+
+}
+
+
+#confidenceBar {
+
+    height: 100%;
+    width: 0%;
+    background: var(--green);
+    transition: width 0.5s ease;
+
+}
+
+
+.result-bottom {
+
+    padding: 17px 28px;
+    background: var(--green-soft);
+    color: var(--muted);
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+/* =========================================================
+   SUSTAINABILITY
+   ========================================================= */
+
+.sustainability {
+
+    background: var(--bg);
+
+}
+
+
+.sustainability-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 70px;
+
+    align-items: center;
+
+}
+
+
+.sustainability-copy h2 {
+
+    font-size: clamp(35px,5vw,55px);
+
+    line-height: 1.05;
+
+    letter-spacing: -0.045em;
+
+    margin-bottom: 20px;
+
+}
+
+
+.sustainability-copy p {
+
+    color: var(--muted);
+
+    max-width: 580px;
+
+    font-size: 16px;
+
+}
+
+
+.impact-list {
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+.impact-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 25px;
+
+    padding: 22px 0;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+
+.impact-item strong {
+
+    font-size: 15px;
+
+}
+
+
+.impact-item span {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+
+    background: #10251b;
+
+    color: white;
+
+    padding: 45px 0;
+
+}
+
+
+.footer-inner {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    align-items: center;
+
+}
+
+
+.footer-brand {
+
+    font-weight: bold;
+
+    letter-spacing: 0.12em;
+
+    font-size: 14px;
+
+}
+
+
+.footer-copy {
+
+    color: #a9bcb1;
+
+    font-size: 12px;
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   CHAT BOX
+   ========================================================= */
+
+.chat-button {
+
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 25px;
+
+    width: 62px;
+
+    height: 62px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-shadow: 0 8px 25px rgba(16,58,41,0.28);
+
+    z-index: 9999;
+
+    transition: all 0.25s ease;
+
+}
+
+
+.chat-button:hover {
+
+    background: var(--green-dark);
+
+    transform: scale(1.07);
+
+}
+
+
+.chat-window {
+
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 100px;
+
+    width: 365px;
+
+    height: 500px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow: 0 20px 55px rgba(23,50,37,0.22);
+
+    border: 1px solid var(--border);
+
+    overflow: hidden;
+
+    display: none;
+
+    flex-direction: column;
+
+    z-index: 9998;
+
+}
+
+
+.chat-window.active {
+
+    display: flex;
+
+}
+
+
+.chat-header {
+
+    background: var(--green);
+
+    color: white;
+
+    padding: 17px 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.chat-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+}
+
+
+.chat-avatar {
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: var(--green);
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 20px;
+
+}
+
+
+.chat-header-text strong {
+
+    display: block;
+
+    font-size: 15px;
+
+}
+
+
+.chat-header-text span {
+
+    display: block;
+
+    font-size: 11px;
+
+    color: #c8d8d0;
+
+    margin-top: 2px;
+
+}
+
+
+.chat-close {
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+}
+
+
+.chat-messages {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 18px;
+
+    background: #f7f9f7;
+
+}
+
+
+.chat-message {
+
+    max-width: 82%;
+
+    padding: 10px 13px;
+
+    border-radius: 14px;
+
+    margin-bottom: 11px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+.bot-message {
+
+    background: #e5eee9;
+
+    color: var(--text);
+
+    border-bottom-left-radius: 4px;
+
+    margin-right: auto;
+
+}
+
+
+.user-message {
+
+    background: var(--green);
+
+    color: white;
+
+    border-bottom-right-radius: 4px;
+
+    margin-left: auto;
+
+}
+
+
+.quick-questions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    padding: 10px 15px;
+
+    background: white;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+.quick-question {
+
+    border: 1px solid #cbd9d1;
+
+    background: white;
+
+    color: var(--green);
+
+    padding: 6px 9px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+}
+
+
+.quick-question:hover {
+
+    background: var(--green-soft);
+
+}
+
+
+.chat-input-area {
+
+    display: flex;
+
+    gap: 8px;
+
+    padding: 12px;
+
+    background: white;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+#chatInput {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 42px;
+
+    padding: 0 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 22px;
+
+    outline: none;
+
+    color: var(--text);
+
+    background: #f8faf8;
+
+    font-size: 13px;
+
+}
+
+
+#chatInput:focus {
+
+    border-color: #9db7a8;
+
+}
+
+
+#chatSend {
+
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 17px;
+
+}
+
+
+#chatSend:hover {
+
+    background: var(--green-dark);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width:1200px) {
+
+    .system-process {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+
+    }
+
+
+    .system-connector {
+
+        height: 25px;
+
+        transform: rotate(90deg);
+
+    }
+
+
+    .system-connector::before {
+
+        width: 30px;
+
+    }
+
+
+    .system-connector::after {
+
+        background: #f5f8f5;
+
+    }
+
+}
+
+
+@media (max-width:900px) {
+
+    .hero-grid,
+    .science-grid,
+    .scanner-layout,
+    .sustainability-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .hero-grid {
+
+        gap: 50px;
+
+    }
+
+
+    .hero {
+
+        padding: 70px 0;
+
+        min-height: auto;
+
+    }
+
+
+    .technology .tech-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 16px;
+
+    }
+
+
+    .technology .tech-card {
+
+        min-height: 210px;
+
+    }
+
+}
+
+
+@media (max-width:650px) {
+
+    .container {
+
+        width: min(100% - 30px,1120px);
+
+    }
+
+
+    .nav-inner {
+
+        min-height: 68px;
+
+        padding: 0 15px;
+
+    }
+
+
+    .nav-links a:not(.nav-scan) {
+
+        display: none;
+
+    }
+
+
+    .hero-copy h1 {
+
+        font-size: 53px;
+
+    }
+
+
+    .hero-copy .lead {
+
+        font-size: 16px;
+
+    }
+
+
+    .section {
+
+        padding: 75px 0;
+
+    }
+
+
+    .sensor-card {
+
+        min-height: 370px;
+
+        padding: 22px;
+
+    }
+
+
+    .sensor-display {
+
+        min-height: 210px;
+
+    }
+
+
+    .prototype-photo {
+
+        height: 210px;
+
+    }
+
+
+    .camera-area {
+
+        min-height: 310px;
+
+    }
+
+
+    #camera,
+    #capturedImage {
+
+        height: 310px;
+
+    }
+
+
+    .scan-guide {
+
+        width: 210px;
+
+        height: 125px;
+
+    }
+
+
+    .result-main {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .result-bottom,
+    .result-top {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+    .footer-inner {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .footer-copy {
+
+        text-align: left;
+
+    }
+
+
+    /* -----------------------------------------------------
+       MATURE TECHNOLOGY PAGE MOBILE
+       ----------------------------------------------------- */
+
+    .technology .section-heading {
+
+        margin-bottom: 40px;
+
+    }
+
+
+    .technology .section-heading h2 {
+
+        font-size: 38px;
+
+    }
+
+
+    .technology .section-heading p {
+
+        font-size: 15px;
+
+    }
+
+
+    .technology .tech-card {
+
+        min-height: 205px;
+
+        padding: 27px 24px 31px;
+
+    }
+
+
+    .technology .tech-card::after {
+
+        opacity: 1;
+
+        transform: none;
+
+    }
+
+
+    /* -----------------------------------------------------
+       TECHNOLOGY POPUP
+       ----------------------------------------------------- */
+
+    .tech-modal {
+
+        padding: 15px;
+
+    }
+
+
+    .tech-modal-box {
+
+        padding: 32px 22px;
+
+        border-radius: 20px;
+
+        max-height: 90vh;
+
+    }
+
+
+    .tech-modal-box h3 {
+
+        font-size: 25px;
+
+    }
+
+
+    /* -----------------------------------------------------
+       SYSTEM ARCHITECTURE
+       ----------------------------------------------------- */
+
+    .workflow {
+
+        padding: 75px 0 80px;
+
+    }
+
+
+    .workflow .container {
+
+        width: min(100% - 30px,1120px);
+
+    }
+
+
+    .workflow-heading {
+
+        margin-bottom: 40px;
+
+    }
+
+
+    .workflow-heading h2 {
+
+        font-size: 38px;
+
+    }
+
+
+    .workflow-heading p {
+
+        font-size: 15px;
+
+    }
+
+
+    .system-header {
+
+        padding: 17px 18px;
+
+    }
+
+
+    .system-process {
+
+        padding: 18px;
+
+    }
+
+
+    .system-stage {
+
+        min-height: auto;
+
+        padding: 23px;
+
+    }
+
+
+    .system-pathway {
+
+        margin: 0 18px 18px;
+
+        padding: 19px;
+
+    }
+
+
+    .system-pathway-text {
+
+        font-size: 13px;
+
+    }
+
+
+    .workflow-result {
+
+        margin: 0 18px 18px;
+
+        padding: 22px;
+
+        grid-template-columns: auto 1fr;
+
+    }
+
+
+    .workflow-result-value {
+
+        grid-column: 2;
+
+        text-align: left;
+
+    }
+
+}
+
+
+/* =========================================================
+   CHAT MOBILE
+   ========================================================= */
+
+@media (max-width:500px) {
+
+    .chat-window {
+
+        right: 12px;
+
+        bottom: 88px;
+
+        width: calc(100% - 24px);
+
+        height: 480px;
+
+    }
+
+
+    .chat-button {
+
+        right: 15px;
+
+        bottom: 15px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION
+     ========================================================= -->
+
+<header class="navbar">
+
+<div class="nav-inner">
+
+<a href="#home" class="brand">
+
+<div class="brand-mark">
+
+<img
+    src="sustainova-logo.jpeg"
+    alt="Sustainova Team Logo"
+>
+
+</div>
+
+<div class="brand-text">
+
+<strong>SMARTFRESH</strong>
+
+<span>by Sustainova</span>
+
+</div>
+
+</a>
+
+
+<nav class="nav-links">
+
+<a href="#technology">
+Technology
+</a>
+
+<a href="#workflow">
+How It Works
+</a>
+
+<a href="#science">
+Science
+</a>
+
+<a href="#freshness" class="nav-scan">
+Scan Freshness
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero" id="home">
+
+<div class="container hero-grid">
+
+
+<div class="hero-copy">
+
+<div class="eyebrow">
+Smart packaging innovation
+</div>
+
+
+<h1>
+
+Know your milk.
+
+<span>
+Before you pour.
+</span>
+
+</h1>
+
+
+<p class="lead">
+
+SmartFresh combines a natural colour-changing sensor
+with digital image analysis to provide a simple
+indication of milk freshness.
+
+</p>
+
+
+<div class="hero-actions">
+
+<a href="#freshness" class="primary-button">
+
+Check Milk Freshness
+
+<span>→</span>
+
+</a>
+
+
+<a href="#technology" class="secondary-button">
+
+Explore the technology
+
+</a>
+
+</div>
+
+
+<div class="hero-points">
+
+<span>
+Natural sensor
+</span>
+
+<span>
+Digital analysis
+</span>
+
+<span>
+Sustainable packaging
+</span>
+
+</div>
+
+</div>
+
+
+<div class="hero-visual">
+
+<div class="sensor-card">
+
+
+<div class="sensor-top">
+
+<div class="sensor-label">
+
+SmartFresh indicator
+
+</div>
+
+
+<div class="live-dot">
+
+<i></i>
+
+Prototype
+
+</div>
+
+</div>
+
+
+<div class="sensor-display">
+
+<img
+    src="smartfresh-prototype.jpg.png"
+    alt="SmartFresh physical prototype"
+    class="prototype-photo"
+>
+
+</div>
+
+
+<div class="sensor-info">
+
+<div class="mini-stat">
+
+<span>
+Detection
+</span>
+
+<strong>
+Colour response
+</strong>
+
+</div>
+
+
+<div class="mini-stat">
+
+<span>
+Analysis
+</span>
+
+<strong>
+RGB comparison
+</strong>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     TECHNOLOGY
+     ========================================================= -->
+
+<section class="section technology" id="technology">
+
+<div class="container">
+
+
+<div class="section-heading">
+
+<h2>
+
+How SmartFresh Works
+
+</h2>
+
+
+<p>
+
+SmartFresh combines biodegradable packaging with a natural
+anthocyanin-based colour indicator. As the condition of the
+milk changes, the sensor changes colour. The colour can then
+be analysed digitally to estimate the freshness category.
+
+</p>
+
+</div>
+
+
+<div class="tech-grid">
+
+
+<article
+    class="tech-card"
+    data-tech="biodegradable"
+    tabindex="0"
+    role="button"
+    aria-label="Learn about biodegradable packaging"
+>
+
+<div class="tech-number">
+🌱
+</div>
+
+<h3>
+Biodegradable
+</h3>
+
+<p>
+
+Designed with sustainability in mind.
+
+</p>
+
+</article>
+
+
+<article
+    class="tech-card"
+    data-tech="sensor"
+    tabindex="0"
+    role="button"
+    aria-label="Learn about the natural sensor"
+>
+
+<div class="tech-number">
+🧪
+</div>
+
+<h3>
+Natural Sensor
+</h3>
+
+<p>
+
+Uses colour-changing anthocyanin compounds.
+
+</p>
+
+</article>
+
+
+<article
+    class="tech-card"
+    data-tech="analysis"
+    tabindex="0"
+    role="button"
+    aria-label="Learn about digital analysis"
+>
+
+<div class="tech-number">
+🤖
+</div>
+
+<h3>
+Digital Analysis
+</h3>
+
+<p>
+
+Image analysis helps classify freshness.
+
+</p>
+
+</article>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     TECHNOLOGY INFORMATION POPUP
+     ========================================================= -->
+
+<div
+    class="tech-modal"
+    id="techModal"
+    aria-hidden="true"
+>
+
+<div
+    class="tech-modal-box"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="techModalTitle"
+>
+
+
+<button
+    class="tech-modal-close"
+    id="techModalClose"
+    aria-label="Close information"
+>
+
+×
+
+</button>
+
+
+<div
+    class="tech-modal-icon"
+    id="techModalIcon"
+>
+
+🌱
+
+</div>
+
+
+<h3 id="techModalTitle">
+
+Biodegradable Packaging
+
+</h3>
+
+
+<p
+    class="tech-modal-intro"
+    id="techModalIntro"
+>
+
+SmartFresh explores sustainable packaging by using
+materials designed to reduce dependence on conventional
+plastic packaging.
+
+</p>
+
+
+<div id="techModalContent">
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     SMARTFRESH SYSTEM ARCHITECTURE
+     ========================================================= -->
+
+<section class="section workflow" id="workflow">
+
+<div class="container">
+
+
+<div class="workflow-heading">
+
+<span class="workflow-kicker">
+System Architecture
+</span>
+
+<h2>
+From biological response to digital insight.
+</h2>
+
+<p>
+SmartFresh connects a natural colour indicator with
+image-based analysis to transform a visible sensor
+response into an understandable freshness indication.
+</p>
+
+</div>
+
+
+<div class="system-overview">
+
+
+<div class="system-header">
+
+<div class="system-header-title">
+SmartFresh Detection System
+</div>
+
+<div class="system-header-status">
+Prototype pathway
+</div>
+
+</div>
+
+
+<div class="system-process">
+
+
+<!-- STAGE 01 -->
+
+<article class="system-stage">
+
+<div class="system-stage-number">
+
+<span>
+01
+</span>
+
+<small>
+Input
+</small>
+
+</div>
+
+
+<div class="system-stage-icon">
+01
+</div>
+
+
+<h3>
+Milk Condition
+</h3>
+
+
+<p>
+The condition of milk changes over time.
+These changes provide the basis for the
+sensor response monitored by SmartFresh.
+</p>
+
+
+</article>
+
+
+<div class="system-connector"></div>
+
+
+<!-- STAGE 02 -->
+
+<article class="system-stage">
+
+<div class="system-stage-number">
+
+<span>
+02
+</span>
+
+<small>
+Sensing
+</small>
+
+</div>
+
+
+<div class="system-stage-icon">
+02
+</div>
+
+
+<h3>
+Natural Colour Sensor
+</h3>
+
+
+<p>
+The anthocyanin-based indicator responds
+through a visible colour transition that
+can be observed on the SmartFresh packaging.
+</p>
+
+
+</article>
+
+
+<div class="system-connector"></div>
+
+
+<!-- STAGE 03 -->
+
+<article class="system-stage">
+
+<div class="system-stage-number">
+
+<span>
+03
+</span>
+
+<small>
+Analysis
+</small>
+
+</div>
+
+
+<div class="system-stage-icon">
+03
+</div>
+
+
+<h3>
+Digital Interpretation
+</h3>
+
+
+<p>
+A camera captures the indicator and the
+image is analysed using RGB values against
+the calibrated prototype references.
+</p>
+
+
+</article>
+
+
+</div>
+
+
+<!-- TECHNICAL PATHWAY -->
+
+<div class="system-pathway">
+
+<span class="system-pathway-label">
+Technical pathway
+</span>
+
+
+<div class="system-pathway-text">
+
+<strong>
+Milk condition
+</strong>
+
+&nbsp;→&nbsp;
+
+<strong>
+Anthocyanin response
+</strong>
+
+&nbsp;→&nbsp;
+
+<strong>
+Colour transition
+</strong>
+
+&nbsp;→&nbsp;
+
+<strong>
+Image capture
+</strong>
+
+&nbsp;→&nbsp;
+
+<strong>
+RGB comparison
+</strong>
+
+&nbsp;→&nbsp;
+
+<strong>
+Freshness classification
+</strong>
+
+</div>
+
+</div>
+
+
+<!-- FINAL RESULT -->
+
+<div class="workflow-result">
+
+
+<div class="workflow-result-icon">
+✓
+</div>
+
+
+<div class="workflow-result-copy">
+
+<h3>
+Freshness Classification
+</h3>
+
+<p>
+The detected sensor colour is matched with
+the prototype reference scale to generate
+an experimental freshness indication.
+</p>
+
+</div>
+
+
+<div class="workflow-result-value">
+
+<strong>
+Colour → Data
+</strong>
+
+<span>
+Digital output
+</span>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SCIENCE
+     ========================================================= -->
+
+<section class="section science" id="science">
+
+<div class="container science-grid">
+
+
+<div>
+
+<div class="eyebrow">
+Science behind SmartFresh
+</div>
+
+
+<h2>
+
+Turning a colour
+response into data.
+
+</h2>
+
+
+<p class="science-intro">
+
+SmartFresh uses an anthocyanin-based colour indicator
+as the sensing element. The visible response can then
+be captured and interpreted digitally.
+
+</p>
+
+</div>
+
+
+<div class="science-flow">
+
+
+<div class="science-row">
+
+<span>
+01
+</span>
+
+<div>
+
+<strong>
+Natural indicator
+</strong>
+
+<p>
+
+Anthocyanin compounds provide the colour-changing
+sensing response.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="science-row">
+
+<span>
+02
+</span>
+
+<div>
+
+<strong>
+Colour transition
+</strong>
+
+<p>
+
+The sensor response moves through the calibrated
+blue, pink and red reference range.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="science-row">
+
+<span>
+03
+</span>
+
+<div>
+
+<strong>
+Image capture
+</strong>
+
+<p>
+
+The sensor can be photographed using a device
+camera or an uploaded image.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="science-row">
+
+<span>
+04
+</span>
+
+<div>
+
+<strong>
+RGB comparison
+</strong>
+
+<p>
+
+The detected colour is compared with prototype
+reference RGB values.
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SCANNER
+     ========================================================= -->
+
+<section class="section scanner-section" id="freshness">
+
+<div class="container">
+
+
+<div class="section-heading">
+
+<div class="eyebrow">
+Freshness analysis
+</div>
+
+
+<h2>
+
+Check your SmartFresh sensor.
+
+</h2>
+
+
+<p>
+
+Capture the sensor with your camera or upload an image.
+The prototype will analyse the colour response.
+
+</p>
+
+</div>
+
+
+<div class="scanner-layout">
+
+
+<div class="scanner-panel">
+
+
+<div class="scanner-header">
+
+<h3>
+Sensor scanner
+</h3>
+
+<div class="scanner-status" id="scannerStatus">
+Ready
+</div>
+
+</div>
+
+
+<div class="camera-area">
+
+
+<div class="camera-placeholder" id="cameraPlaceholder">
+
+<div class="camera-symbol">
++
+</div>
+
+<strong>
+Camera ready
+</strong>
+
+<span>
+Start the camera to scan the sensor.
+</span>
+
+</div>
+
+
+<video
+id="camera"
+autoplay
+playsinline>
+</video>
+
+
+<img
+id="capturedImage"
+alt="Captured SmartFresh sensor">
+
+
+<div
+class="scan-guide"
+id="scanGuide">
+</div>
+
+
+</div>
+
+
+<canvas id="canvas">
+</canvas>
+
+
+<div class="scanner-actions">
+
+
+<button
+type="button"
+class="primary-button"
+id="startCameraButton">
+
+Start Camera
+
+</button>
+
+
+<button
+type="button"
+class="primary-button"
+id="captureButton"
+style="display:none;">
+
+Capture Sensor
+
+</button>
+
+
+<button
+type="button"
+class="secondary-button"
+id="retakeButton"
+style="display:none;">
+
+Scan Again
+
+</button>
+
+
+<label
+for="imageUpload"
+class="secondary-button upload-label">
+
+Upload Image
+
+</label>
+
+
+<input
+type="file"
+id="imageUpload"
+accept="image/*">
+
+</div>
+
+</div>
+
+
+<aside class="instructions-panel">
+
+
+<h3>
+For a better reading
+</h3>
+
+
+<p>
+
+Follow these simple steps when capturing the sensor.
+
+</p>
+
+
+<div class="instruction">
+
+<div class="instruction-number">
+01
+</div>
+
+<div>
+
+<strong>
+Keep the sensor visible
+</strong>
+
+<p>
+
+Make sure the indicator is clearly inside
+the camera view.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="instruction">
+
+<div class="instruction-number">
+02
+</div>
+
+<div>
+
+<strong>
+Avoid strong reflections
+</strong>
+
+<p>
+
+Try to use even lighting and avoid direct glare.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="instruction">
+
+<div class="instruction-number">
+03
+</div>
+
+<div>
+
+<strong>
+Keep the camera steady
+</strong>
+
+<p>
+
+Hold the device still while capturing the image.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="instruction">
+
+<div class="instruction-number">
+04
+</div>
+
+<div>
+
+<strong>
+Centre the sensor
+</strong>
+
+<p>
+
+Place the sensor near the guide area
+for a consistent reading.
+
+</p>
+
+</div>
+
+</div>
+
+
+<div class="prototype-note">
+
+<strong>
+Prototype note:
+</strong>
+
+The current system uses calibrated RGB reference
+values. Results are intended for project demonstration
+and testing.
+
+</div>
+
+
+</aside>
+
+
+</div>
+
+
+<!-- =========================================================
+     RESULT
+     ========================================================= -->
+
+<div id="scanResult">
+
+
+<div class="result-top">
+
+<div>
+
+<div class="result-label">
+Analysis complete
+</div>
+
+<h3 id="resultTitle">
+Freshness status
+</h3>
+
+</div>
+
+
+<div
+class="result-indicator"
+id="resultIndicator">
+</div>
+
+</div>
+
+
+<div class="result-main">
+
+
+<div>
+
+<div
+class="freshness-number"
+id="freshnessValue">
+
+0%
+
+</div>
+
+<div class="freshness-caption">
+
+Prototype freshness indication
+
+</div>
+
+</div>
+
+
+<div class="result-details">
+
+
+<p id="resultDescription">
+
+Detected sensor colour:
+
+</p>
+
+
+<p>
+
+<strong>
+Detected RGB:
+</strong>
+
+<span id="rgbValue">
+—
+</span>
+
+</p>
+
+
+<p>
+
+<strong>
+Closest reference:
+</strong>
+
+<span id="referenceValue">
+—
+</span>
+
+</p>
+
+
+<p>
+
+<strong>
+Match confidence:
+</strong>
+
+<span id="confidenceValue">
+—
+</span>
+
+</p>
+
+
+<div class="confidence-track">
+
+<div id="confidenceBar">
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<div class="result-bottom">
+
+<span>
+SmartFresh digital colour analysis
+</span>
+
+<span>
+Prototype calibration
+</span>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     SUSTAINABILITY
+     ========================================================= -->
+
+<section class="section sustainability">
+
+<div class="container sustainability-grid">
+
+
+<div class="sustainability-copy">
+
+<div class="eyebrow">
+Why it matters
+</div>
+
+
+<h2>
+
+Smarter packaging
+can reduce uncertainty.
+
+</h2>
+
+
+<p>
+
+SmartFresh explores how packaging can do more than
+protect food. By combining sensing and digital analysis,
+packaging can provide additional information at the
+point of use.
+
+</p>
+
+</div>
+
+
+<div class="impact-list">
+
+
+<div class="impact-item">
+
+<strong>
+Sustainable approach
+</strong>
+
+<span>
+Designed around biodegradable packaging
+</span>
+
+</div>
+
+
+<div class="impact-item">
+
+<strong>
+Natural sensing
+</strong>
+
+<span>
+Anthocyanin-based colour indication
+</span>
+
+</div>
+
+
+<div class="impact-item">
+
+<strong>
+Digital analysis
+</strong>
+
+<span>
+Camera-based RGB interpretation
+</span>
+
+</div>
+
+
+<div class="impact-item">
+
+<strong>
+User-friendly result
+</strong>
+
+<span>
+Simple freshness status for the user
+</span>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+<div class="container footer-inner">
+
+<div class="footer-brand">
+
+SMARTFRESH / SUSTAINOVA
+
+</div>
+
+
+<div class="footer-copy">
+
+Intelligent freshness detection for
+sustainable food packaging.
+
+</div>
+
+</div>
+
+</footer>
+
+
+<!-- =========================================================
+     CHAT BUTTON
+     ========================================================= -->
+
+<button
+    class="chat-button"
+    id="chatButton"
+    aria-label="Open SmartFresh Assistant"
+    onclick="toggleChat()">
+
+    💬
+
+</button>
+
+
+<div
+    class="chat-window"
+    id="chatWindow">
+
+
+    <div class="chat-header">
+
+        <div class="chat-header-left">
+
+            <div class="chat-avatar">
+                💡
+            </div>
+
+            <div class="chat-header-text">
+
+                <strong>
+                    SmartFresh Assistant
+                </strong>
+
+                <span>
+                    Here to help with SmartFresh
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="chat-close"
+            onclick="toggleChat()"
+            aria-label="Close chat">
+
+            ×
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="chat-messages"
+        id="chatMessages">
+
+
+        <div class="chat-message bot-message">
+
+            👋 Hi! I'm the SmartFresh Assistant.
+
+            <br><br>
+
+            I can help you understand the SmartFresh
+            sensor, scanner and freshness results.
+
+        </div>
+
+
+        <div class="chat-message bot-message">
+
+            I can also explain the materials and
+            development process behind the prototype.
+
+            <br><br>
+
+            Try asking me:
+
+            <br><br>
+
+            • How does SmartFresh work?<br>
+            • Where does the anthocyanin come from?<br>
+            • How is pectin obtained?<br>
+            • What is PVA?<br>
+            • What does glycerol do?<br>
+            • What does blue mean?<br>
+            • What does pink mean?<br>
+            • What does red mean?<br>
+            • How does the scanner work?
+
+        </div>
+
+
+    </div>
+
+
+    <div class="quick-questions">
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('How does SmartFresh work?')">
+
+            How does it work?
+
+        </button>
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('Where does the anthocyanin come from?')">
+
+            Anthocyanin?
+
+        </button>
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('How is pectin obtained?')">
+
+            Pectin?
+
+        </button>
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('What is PVA and glycerol?')">
+
+            PVA + glycerol?
+
+        </button>
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('What does blue mean?')">
+
+            Blue?
+
+        </button>
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('What does pink mean?')">
+
+            Pink?
+
+        </button>
+
+
+        <button
+            class="quick-question"
+            onclick="askQuickQuestion('What does red mean?')">
+
+            Red?
+
+        </button>
+
+
+    </div>
+
+
+    <div class="chat-input-area">
+
+
+        <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask about SmartFresh..."
+            autocomplete="off">
+
+
+        <button
+            id="chatSend"
+            onclick="sendChatMessage()"
+            aria-label="Send message">
+
+            ➤
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   TECHNOLOGY CARD POPUP
+   ========================================================= */
+
+const technologyInformation = {
+
+
+    biodegradable: {
+
+        icon: "🌱",
+
+        title: "Biodegradable Packaging",
+
+        intro:
+        "SmartFresh explores a packaging system designed around biodegradable materials and the utilization of renewable or waste-derived components.",
+
+        content: `
+
+            <div class="tech-detail">
+
+                <h4>🌿 Sustainable material approach</h4>
+
+                <p>
+                The packaging concept focuses on developing a biodegradable
+                pouch rather than relying only on conventional plastic
+                packaging.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>♻️ Waste utilization</h4>
+
+                <p>
+                Pomegranate peel can be treated as an agricultural or food
+                processing waste stream. Instead of simply discarding the
+                peel, it can be explored as a source of useful material
+                components such as pectin.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>🧪 Pectin as a material component</h4>
+
+                <p>
+                The extracted pectin can be incorporated into a biodegradable
+                film formulation. This connects food-waste utilization with
+                the development of a functional packaging material.
+                </p>
+
+            </div>
+
+
+            <div class="tech-process">
+
+                <strong>Prototype material pathway</strong>
+
+                <span>
+                Pomegranate peel → Cutting → Drying → Extraction →
+                Pectin → Film formulation → SmartFresh pouch
+                </span>
+
+            </div>
+
+        `
+
+    },
+
+
+    sensor: {
+
+        icon: "🧪",
+
+        title: "Natural Sensor",
+
+        intro:
+        "The SmartFresh indicator uses natural colour-changing compounds to create a visible response that can be interpreted by the user and analysed digitally.",
+
+        content: `
+
+            <div class="tech-detail">
+
+                <h4>🦋 Blue pea as a natural source</h4>
+
+                <p>
+                Blue pea can be dried and processed into powder. The
+                resulting plant material can be used as a natural source
+                of anthocyanin-type pigments for the colour-changing
+                indicator.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>🎨 Anthocyanin colour response</h4>
+
+                <p>
+                Anthocyanin pigments are naturally occurring colour
+                compounds. Their visible colour can vary with the
+                surrounding chemical environment, making them useful
+                for an experimental colour-indicator system.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>🍎 Pomegranate peel pathway</h4>
+
+                <p>
+                Pomegranate peel can be cut and dried before further
+                processing. The peel is also explored for pectin
+                recovery, providing a waste-utilization pathway
+                alongside the sensor and packaging concept.
+                </p>
+
+            </div>
+
+
+            <div class="tech-process">
+
+                <strong>Natural indicator pathway</strong>
+
+                <span>
+                Blue pea → Drying → Powder → Anthocyanin →
+                Colour-changing indicator
+                </span>
+
+            </div>
+
+
+            <div class="tech-process">
+
+                <strong>Waste-utilization pathway</strong>
+
+                <span>
+                Pomegranate peel → Cutting → Drying →
+                Extraction → Pectin
+                </span>
+
+            </div>
+
+        `
+
+    },
+
+
+    analysis: {
+
+        icon: "🤖",
+
+        title: "Digital Analysis",
+
+        intro:
+        "Once the SmartFresh indicator changes colour, the website can capture an image and use RGB values to compare the detected colour with experimental reference colours.",
+
+        content: `
+
+            <div class="tech-detail">
+
+                <h4>📷 Step 1 — Image capture</h4>
+
+                <p>
+                The user can use the device camera or upload an image
+                containing the SmartFresh sensor.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>🎨 Step 2 — Colour detection</h4>
+
+                <p>
+                The website reads the image pixels from a central
+                region and calculates an average red, green and blue
+                value.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>🔢 Step 3 — RGB comparison</h4>
+
+                <p>
+                The detected RGB value is compared with the calibrated
+                experimental reference colours used by the prototype.
+                The closest reference is selected.
+                </p>
+
+            </div>
+
+
+            <div class="tech-detail">
+
+                <h4>📊 Step 4 — Freshness indication</h4>
+
+                <p>
+                The selected reference is associated with an experimental
+                freshness value. The website then displays the colour
+                category, RGB value and match confidence.
+                </p>
+
+            </div>
+
+
+            <div class="tech-process">
+
+                <strong>Digital analysis pathway</strong>
+
+                <span>
+                Sensor → Camera / Upload → Image → RGB values →
+                Reference comparison → Experimental freshness result
+                </span>
+
+            </div>
+
+        `
+
+    }
+
+};
+
+
+/* =========================================================
+   TECHNOLOGY MODAL ELEMENTS
+   ========================================================= */
+
+const techModal =
+document.getElementById("techModal");
+
+const techModalIcon =
+document.getElementById("techModalIcon");
+
+const techModalTitle =
+document.getElementById("techModalTitle");
+
+const techModalIntro =
+document.getElementById("techModalIntro");
+
+const techModalContent =
+document.getElementById("techModalContent");
+
+const techModalClose =
+document.getElementById("techModalClose");
+
+
+/* =========================================================
+   OPEN TECHNOLOGY MODAL
+   ========================================================= */
+
+function openTechnologyModal(type) {
+
+    const information =
+    technologyInformation[type];
+
+
+    if(!information) {
+
+        return;
+
+    }
+
+
+    techModalIcon.textContent =
+    information.icon;
+
+
+    techModalTitle.textContent =
+    information.title;
+
+
+    techModalIntro.textContent =
+    information.intro;
+
+
+    techModalContent.innerHTML =
+    information.content;
+
+
+    techModal.classList.add("active");
+
+
+    techModal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+    "hidden";
+
+}
+
+
+/* =========================================================
+   CLOSE TECHNOLOGY MODAL
+   ========================================================= */
+
+function closeTechnologyModal() {
+
+    techModal.classList.remove("active");
+
+
+    techModal.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    document.body.style.overflow =
+    "";
+
+}
+
+
+/* =========================================================
+   TECHNOLOGY CARD CLICK EVENTS
+   ========================================================= */
+
+document
+.querySelectorAll(".tech-card")
+.forEach(function(card) {
+
+
+    card.addEventListener(
+        "click",
+        function() {
+
+            const type =
+            card.getAttribute("data-tech");
+
+            openTechnologyModal(type);
+
+        }
+    );
+
+
+    card.addEventListener(
+        "keydown",
+        function(event) {
+
+            if(
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                const type =
+                card.getAttribute("data-tech");
+
+                openTechnologyModal(type);
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+techModalClose.addEventListener(
+
+    "click",
+
+    closeTechnologyModal
+
+);
+
+
+/* =========================================================
+   CLOSE OUTSIDE POPUP
+   ========================================================= */
+
+techModal.addEventListener(
+
+    "click",
+
+    function(event) {
+
+        if(
+            event.target === techModal
+        ) {
+
+            closeTechnologyModal();
+
+        }
+
+    }
+
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+   ========================================================= */
+
+document.addEventListener(
+
+    "keydown",
+
+    function(event) {
+
+        if(
+            event.key === "Escape" &&
+            techModal.classList.contains("active")
+        ) {
+
+            closeTechnologyModal();
+
+        }
+
+    }
+
+);
+
+
+/* =========================================================
+   CAMERA
+   ========================================================= */
+
+let cameraStream = null;
+
+
+/* =========================================================
+   EXPERIMENTAL REFERENCE COLOURS
+   ========================================================= */
+
+const references = {
+
+    fresh: {
+
+        r: 37,
+        g: 58,
+        b: 145,
+
+        label: "Fresh",
+
+        freshness: 100,
+
+        description: "Dark blue / bluish-purple",
+
+        color: "#253a91"
+
+    },
+
+
+    slightSpoilage: {
+
+        r: 180,
+        g: 70,
+        b: 130,
+
+        label: "Slight Spoilage",
+
+        freshness: 85,
+
+        description: "Reddish-pink",
+
+        color: "#b44682"
+
+    },
+
+
+    moreSpoilage: {
+
+        r: 195,
+        g: 76,
+        b: 140,
+
+        label: "More Spoilage",
+
+        freshness: 50,
+
+        description: "Beetroot / dark pink",
+
+        color: "#c34c8c"
+
+    },
+
+
+    highSpoilage: {
+
+        r: 190,
+        g: 45,
+        b: 70,
+
+        label: "Highly Spoiled",
+
+        freshness: 20,
+
+        description: "Dark red",
+
+        color: "#be2d46"
+
+    },
+
+
+    spoiled: {
+
+        r: 217,
+        g: 39,
+        b: 39,
+
+        label: "Spoiled",
+
+        freshness: 0,
+
+        description: "Red",
+
+        color: "#d92727"
+
+    }
+
+};
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const camera =
+document.getElementById("camera");
+
+const canvas =
+document.getElementById("canvas");
+
+const capturedImage =
+document.getElementById("capturedImage");
+
+const cameraPlaceholder =
+document.getElementById("cameraPlaceholder");
+
+const scanGuide =
+document.getElementById("scanGuide");
+
+const startCameraButton =
+document.getElementById("startCameraButton");
+
+const captureButton =
+document.getElementById("captureButton");
+
+const retakeButton =
+document.getElementById("retakeButton");
+
+const imageUpload =
+document.getElementById("imageUpload");
+
+const scannerStatus =
+document.getElementById("scannerStatus");
+
+const scanResult =
+document.getElementById("scanResult");
+
+const resultTitle =
+document.getElementById("resultTitle");
+
+const resultDescription =
+document.getElementById("resultDescription");
+
+const freshnessValue =
+document.getElementById("freshnessValue");
+
+const rgbValue =
+document.getElementById("rgbValue");
+
+const referenceValue =
+document.getElementById("referenceValue");
+
+const confidenceValue =
+document.getElementById("confidenceValue");
+
+const confidenceBar =
+document.getElementById("confidenceBar");
+
+const resultIndicator =
+document.getElementById("resultIndicator");
+
+
+/* =========================================================
+   START CAMERA
+   ========================================================= */
+
+async function startCamera() {
+
+    try {
+
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            alert(
+                "Camera access is not supported. Please upload an image instead."
+            );
+
+            return;
+
+        }
+
+
+        stopCamera();
+
+
+        cameraStream =
+        await navigator.mediaDevices.getUserMedia({
+
+            video: {
+
+                facingMode: {
+
+                    ideal: "environment"
+
+                }
+
+            },
+
+            audio: false
+
+        });
+
+
+        camera.srcObject =
+        cameraStream;
+
+
+        camera.style.display =
+        "block";
+
+
+        capturedImage.style.display =
+        "none";
+
+
+        cameraPlaceholder.style.display =
+        "none";
+
+
+        scanGuide.style.display =
+        "block";
+
+
+        startCameraButton.style.display =
+        "none";
+
+
+        captureButton.style.display =
+        "inline-flex";
+
+
+        retakeButton.style.display =
+        "none";
+
+
+        scannerStatus.textContent =
+        "Camera active";
+
+
+        scanResult.style.display =
+        "none";
+
+    }
+
+
+    catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Camera could not be opened. Please allow camera permission or use Upload Image."
+        );
+
+        scannerStatus.textContent =
+        "Camera unavailable";
+
+    }
+
+}
+
+
+/* =========================================================
+   CAPTURE IMAGE
+   ========================================================= */
+
+function captureImage() {
+
+    if (
+        !camera.videoWidth ||
+        !camera.videoHeight
+    ) {
+
+        alert(
+            "Camera is not ready yet. Please wait a moment."
+        );
+
+        return;
+
+    }
+
+
+    canvas.width =
+    camera.videoWidth;
+
+
+    canvas.height =
+    camera.videoHeight;
+
+
+    const context =
+    canvas.getContext("2d");
+
+
+    context.drawImage(
+
+        camera,
+
+        0,
+
+        0,
+
+        canvas.width,
+
+        canvas.height
+
+    );
+
+
+    capturedImage.src =
+    canvas.toDataURL("image/png");
+
+
+    capturedImage.style.display =
+    "block";
+
+
+    camera.style.display =
+    "none";
+
+
+    cameraPlaceholder.style.display =
+    "none";
+
+
+    scanGuide.style.display =
+    "none";
+
+
+    stopCamera();
+
+
+    captureButton.style.display =
+    "none";
+
+
+    retakeButton.style.display =
+    "inline-flex";
+
+
+    scannerStatus.textContent =
+    "Image captured";
+
+
+    analyseImage(canvas);
+
+}
+
+
+/* =========================================================
+   STOP CAMERA
+   ========================================================= */
+
+function stopCamera() {
+
+    if(cameraStream) {
+
+        cameraStream
+        .getTracks()
+        .forEach(function(track) {
+
+            track.stop();
+
+        });
+
+        cameraStream =
+        null;
+
+    }
+
+
+    camera.srcObject =
+    null;
+
+}
+
+
+/* =========================================================
+   RETAKE
+   ========================================================= */
+
+function retakeImage() {
+
+    stopCamera();
+
+
+    capturedImage.style.display =
+    "none";
+
+
+    scanResult.style.display =
+    "none";
+
+
+    retakeButton.style.display =
+    "none";
+
+
+    captureButton.style.display =
+    "none";
+
+
+    cameraPlaceholder.style.display =
+    "block";
+
+
+    scanGuide.style.display =
+    "none";
+
+
+    scannerStatus.textContent =
+    "Ready";
+
+
+    imageUpload.value =
+    "";
+
+
+    startCamera();
+
+}
+
+
+/* =========================================================
+   UPLOAD IMAGE
+   ========================================================= */
+
+imageUpload.addEventListener(
+
+    "change",
+
+    function(event) {
+
+        const file =
+        event.target.files[0];
+
+
+        if(!file) {
+
+            return;
+
+        }
+
+
+        stopCamera();
+
+
+        const reader =
+        new FileReader();
+
+
+        reader.onload =
+        function(e) {
+
+            capturedImage.src =
+            e.target.result;
+
+
+            capturedImage.style.display =
+            "block";
+
+
+            camera.style.display =
+            "none";
+
+
+            cameraPlaceholder.style.display =
+            "none";
+
+
+            scanGuide.style.display =
+            "none";
+
+
+            startCameraButton.style.display =
+            "inline-flex";
+
+
+            captureButton.style.display =
+            "none";
+
+
+            retakeButton.style.display =
+            "inline-flex";
+
+
+            scannerStatus.textContent =
+            "Image uploaded";
+
+
+            capturedImage.onload =
+            function() {
+
+                analyseImage(
+                    capturedImage
+                );
+
+            };
+
+        };
+
+
+        reader.readAsDataURL(file);
+
+    }
+
+);
+
+
+/* =========================================================
+   IMAGE ANALYSIS
+   ========================================================= */
+
+function analyseImage(imageSource) {
+
+    const context =
+    canvas.getContext("2d");
+
+
+    let width;
+    let height;
+
+
+    if(
+        imageSource instanceof HTMLCanvasElement
+    ) {
+
+        width =
+        imageSource.width;
+
+
+        height =
+        imageSource.height;
+
+    }
+
+    else {
+
+        width =
+        imageSource.naturalWidth ||
+        imageSource.width;
+
+
+        height =
+        imageSource.naturalHeight ||
+        imageSource.height;
+
+    }
+
+
+    if(!width || !height) {
+
+        alert(
+            "Image could not be analysed."
+        );
+
+        return;
+
+    }
+
+
+    canvas.width =
+    width;
+
+
+    canvas.height =
+    height;
+
+
+    context.drawImage(
+
+        imageSource,
+
+        0,
+
+        0,
+
+        width,
+
+        height
+
+    );
+
+
+    const roiWidth =
+    Math.floor(width * 0.40);
+
+
+    const roiHeight =
+    Math.floor(height * 0.40);
+
+
+    const startX =
+    Math.floor(
+        (width - roiWidth) / 2
+    );
+
+
+    const startY =
+    Math.floor(
+        (height - roiHeight) / 2
+    );
+
+
+    const imageData =
+    context.getImageData(
+
+        startX,
+
+        startY,
+
+        roiWidth,
+
+        roiHeight
+
+    );
+
+
+    const pixels =
+    imageData.data;
+
+
+    let totalR = 0;
+
+    let totalG = 0;
+
+    let totalB = 0;
+
+    let pixelCount = 0;
+
+
+    for(
+        let i = 0;
+        i < pixels.length;
+        i += 16
+    ) {
+
+        totalR +=
+        pixels[i];
+
+
+        totalG +=
+        pixels[i + 1];
+
+
+        totalB +=
+        pixels[i + 2];
+
+
+        pixelCount++;
+
+    }
+
+
+    if(pixelCount === 0) {
+
+        alert(
+            "No colour information could be detected."
+        );
+
+        return;
+
+    }
+
+
+    const averageR =
+    Math.round(
+        totalR / pixelCount
+    );
+
+
+    const averageG =
+    Math.round(
+        totalG / pixelCount
+    );
+
+
+    const averageB =
+    Math.round(
+        totalB / pixelCount
+    );
+
+
+    const detectedRGB = {
+
+        r: averageR,
+
+        g: averageG,
+
+        b: averageB
+
+    };
+
+
+    let closestReference =
+    null;
+
+
+    let smallestDistance =
+    Infinity;
+
+
+    Object.values(references).forEach(
+
+        function(reference) {
+
+            const distance =
+            calculateRGBDistance(
+
+                detectedRGB,
+
+                reference
+
+            );
+
+
+            if(
+                distance <
+                smallestDistance
+            ) {
+
+                smallestDistance =
+                distance;
+
+                closestReference =
+                reference;
+
+            }
+
+        }
+
+    );
+
+
+    const confidence =
+    calculateConfidence(
+
+        smallestDistance
+
+    );
+
+
+    displayResult(
+
+        closestReference,
+
+        detectedRGB,
+
+        confidence
+
+    );
+
+}
+
+
+/* =========================================================
+   RGB DISTANCE
+   ========================================================= */
+
+function calculateRGBDistance(
+
+    colour1,
+
+    colour2
+
+) {
+
+    const rDifference =
+    colour1.r -
+    colour2.r;
+
+
+    const gDifference =
+    colour1.g -
+    colour2.g;
+
+
+    const bDifference =
+    colour1.b -
+    colour2.b;
+
+
+    return Math.sqrt(
+
+        Math.pow(
+            rDifference,
+            2
+        )
+
+        +
+
+        Math.pow(
+            gDifference,
+            2
+        )
+
+        +
+
+        Math.pow(
+            bDifference,
+            2
+        )
+
+    );
+
+}
+
+
+/* =========================================================
+   CONFIDENCE
+   ========================================================= */
+
+function calculateConfidence(distance) {
+
+    const maxDistance =
+    441.67;
+
+
+    let confidence =
+    100 -
+    (distance / maxDistance) * 100;
+
+
+    confidence =
+    Math.max(
+
+        0,
+
+        Math.min(
+
+            100,
+
+            confidence
+
+        )
+
+    );
+
+
+    return Math.round(
+        confidence
+    );
+
+}
+
+
+/* =========================================================
+   SHOW RESULT
+   ========================================================= */
+
+function displayResult(
+
+    result,
+
+    detectedRGB,
+
+    confidence
+
+) {
+
+    scanResult.style.display =
+    "block";
+
+
+    resultTitle.textContent =
+    result.label;
+
+
+    resultDescription.textContent =
+    "Detected sensor colour: " +
+    result.description;
+
+
+    freshnessValue.textContent =
+    result.freshness +
+    "%";
+
+
+    rgbValue.textContent =
+
+    "(" +
+    detectedRGB.r +
+    ", " +
+    detectedRGB.g +
+    ", " +
+    detectedRGB.b +
+    ")";
+
+
+    referenceValue.textContent =
+
+    result.label +
+    " / " +
+    result.description +
+    " / " +
+    result.freshness +
+    "% fresh";
+
+
+    confidenceValue.textContent =
+    confidence +
+    "%";
+
+
+    confidenceBar.style.width =
+    confidence +
+    "%";
+
+
+    resultIndicator.style.background =
+    result.color;
+
+
+    freshnessValue.style.color =
+    result.color;
+
+
+    scannerStatus.textContent =
+    "Analysis complete";
+
+
+    setTimeout(function() {
+
+        scanResult.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+        });
+
+    },150);
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+   ========================================================= */
+
+startCameraButton.addEventListener(
+
+    "click",
+
+    startCamera
+
+);
+
+
+captureButton.addEventListener(
+
+    "click",
+
+    captureImage
+
+);
+
+
+retakeButton.addEventListener(
+
+    "click",
+
+    retakeImage
+
+);
+
+
+/* =========================================================
+   CLEANUP
+   ========================================================= */
+
+window.addEventListener(
+
+    "beforeunload",
+
+    function() {
+
+        stopCamera();
+
+    }
+
+);
+
+
+/* =========================================================
+   SMARTFRESH CHAT
+   ========================================================= */
+
+function toggleChat() {
+
+    const chatWindow =
+    document.getElementById("chatWindow");
+
+
+    chatWindow.classList.toggle("active");
+
+
+    if(
+        chatWindow.classList.contains("active")
+    ) {
+
+        setTimeout(function() {
+
+            document
+            .getElementById("chatInput")
+            .focus();
+
+        },100);
+
+    }
+
+}
+
+
+/* =========================================================
+   ADD CHAT MESSAGE
+   ========================================================= */
+
+function addChatMessage(
+
+    text,
+
+    type
+
+) {
+
+    const chatMessages =
+    document.getElementById("chatMessages");
+
+
+    const message =
+    document.createElement("div");
+
+
+    message.className =
+    "chat-message " +
+    type;
+
+
+    message.innerHTML =
+    text;
+
+
+    chatMessages.appendChild(
+        message
+    );
+
+
+    chatMessages.scrollTop =
+    chatMessages.scrollHeight;
+
+}
+
+
+/* =========================================================
+   SEND CHAT MESSAGE
+   ========================================================= */
+
+function sendChatMessage() {
+
+    const input =
+    document.getElementById("chatInput");
+
+
+    const message =
+    input.value.trim();
+
+
+    if(message === "") {
+
+        return;
+
+    }
+
+
+    addChatMessage(
+
+        escapeChatText(message),
+
+        "user-message"
+
+    );
+
+
+    input.value = "";
+
+
+    setTimeout(function() {
+
+        const response =
+        getSmartFreshResponse(message);
+
+
+        addChatMessage(
+
+            response,
+
+            "bot-message"
+
+        );
+
+    },500);
+
+}
+
+
+/* =========================================================
+   QUICK QUESTION
+   ========================================================= */
+
+function askQuickQuestion(question) {
+
+    const input =
+    document.getElementById("chatInput");
+
+
+    input.value =
+    question;
+
+
+    sendChatMessage();
+
+}
+
+
+/* =========================================================
+   ENTER KEY
+   ========================================================= */
+
+document
+.getElementById("chatInput")
+.addEventListener(
+
+    "keydown",
+
+    function(event) {
+
+        if(
+            event.key === "Enter"
+        ) {
+
+            sendChatMessage();
+
+        }
+
+    }
+
+);
+
+
+/* =========================================================
+   CHAT RESPONSE LOGIC
+   ========================================================= */
+
+function getSmartFreshResponse(message) {
+
+    const text =
+    message.toLowerCase();
+
+
+    if(
+        text.includes("hello") ||
+        text.includes("hi") ||
+        text.includes("hey")
+    ) {
+
+        return `
+        👋 Hello! I'm the SmartFresh Assistant.
+        <br><br>
+        Ask me anything about the SmartFresh
+        sensor, materials, colour detection,
+        packaging or freshness scanner.
+        `;
+
+    }
+
+
+    /* =====================================================
+       BLUE PEA
+       ===================================================== */
+
+    if(
+        text.includes("blue pea") ||
+        text.includes("butterfly pea") ||
+        text.includes("anthocyanin source")
+    ) {
+
+        return `
+        🦋 <strong>Blue Pea → Anthocyanin</strong>
+        <br><br>
+
+        The SmartFresh concept explores blue pea as
+        a natural source of anthocyanin-type pigments.
+        <br><br>
+
+        The proposed pathway is:
+        <br><br>
+
+        <strong>
+        Blue pea → Drying → Powder → Anthocyanin →
+        Colour-changing indicator
+        </strong>
+
+        <br><br>
+
+        The natural pigment provides the colour response
+        that can be observed and analysed digitally.
+        `;
+
+    }
+
+
+    /* =====================================================
+       POMEGRANATE PEEL
+       ===================================================== */
+
+    if(
+        text.includes("pomegranate") ||
+        text.includes("peel") ||
+        text.includes("waste utilization") ||
+        text.includes("waste")
+    ) {
+
+        return `
+        🍎 <strong>Pomegranate Peel & Waste Utilization</strong>
+        <br><br>
+
+        Pomegranate peel can be treated as a food-processing
+        waste stream instead of simply being discarded.
+        <br><br>
+
+        The proposed pathway is:
+        <br><br>
+
+        <strong>
+        Pomegranate peel → Cutting → Drying →
+        Extraction → Pectin
+        </strong>
+
+        <br><br>
+
+        This gives the project a waste-utilization aspect
+        because the peel is explored as a source of useful
+        material rather than being treated only as waste.
+        `;
+
+    }
+
+
+    /* =====================================================
+       PECTIN
+       ===================================================== */
+
+    if(
+        text.includes("pectin")
+    ) {
+
+        return `
+        🧪 <strong>Pectin in SmartFresh</strong>
+        <br><br>
+
+        Pectin can be obtained from pomegranate peel through
+        an extraction process after the peel is cut and dried.
+        <br><br>
+
+        The proposed material pathway is:
+        <br><br>
+
+        <strong>
+        Pomegranate peel → Drying → Extraction → Pectin
+        </strong>
+
+        <br><br>
+
+        The recovered pectin can then be explored as one
+        component of the biodegradable film or pouch
+        formulation.
+        `;
+
+    }
+
+
+    /* =====================================================
+       PVA + GLYCEROL
+       ===================================================== */
+
+    if(
+        text.includes("pva") ||
+        text.includes("glycerol") ||
+        text.includes("film") ||
+        text.includes("pouch")
+    ) {
+
+        return `
+        📦 <strong>Pectin + PVA + Glycerol</strong>
+        <br><br>
+
+        In the SmartFresh material concept, pectin can be
+        combined with PVA and glycerol to develop a film
+        formulation.
+        <br><br>
+
+        <strong>
+        Pectin + PVA + Glycerol → Film → Pouch
+        </strong>
+
+        <br><br>
+
+        Pectin contributes to the biopolymer-based material
+        system, PVA can provide film-forming properties,
+        and glycerol can act as a plasticizing component
+        to improve flexibility.
+        <br><br>
+
+        The exact formulation and performance would need
+        experimental validation for the final prototype.
+        `;
+
+    }
+
+
+    /* =====================================================
+       MATERIALS
+       ===================================================== */
+
+    if(
+        text.includes("material") ||
+        text.includes("made from") ||
+        text.includes("made of")
+    ) {
+
+        return `
+        🌱 <strong>SmartFresh material concept</strong>
+        <br><br>
+
+        The project explores several components:
+        <br><br>
+
+        🦋 Blue pea → natural anthocyanin source<br>
+        🍎 Pomegranate peel → waste utilization / pectin source<br>
+        🧪 Pectin → biopolymer component<br>
+        📦 PVA → film-forming polymer<br>
+        💧 Glycerol → plasticizing component
+        <br><br>
+
+        These components are explored as part of the
+        biodegradable packaging concept.
+        `;
+
+    }
+
+
+    /* =====================================================
+       HOW DOES SMARTFRESH WORK
+       ===================================================== */
+
+    if(
+        text.includes("how does") ||
+        text.includes("how it works") ||
+        text.includes("work")
+    ) {
+
+        return `
+        💡 <strong>How SmartFresh works:</strong>
+        <br><br>
+
+        SmartFresh combines a natural colour-changing
+        indicator with biodegradable packaging and
+        digital image analysis.
+        <br><br>
+
+        The overall concept is:
+        <br><br>
+
+        <strong>
+        Natural materials → Sensor → Colour change →
+        Camera → RGB analysis → Freshness indication
+        </strong>
+        <br><br>
+
+        The website captures or uploads an image,
+        analyses its RGB colour values and compares
+        them with five experimental reference colours.
+        `;
+
+    }
+
+
+    /* =====================================================
+       SCANNER
+       ===================================================== */
+
+    if(
+        text.includes("scanner") ||
+        text.includes("scan") ||
+        text.includes("camera")
+    ) {
+
+        return `
+        📷 <strong>Using the scanner:</strong>
+        <br><br>
+
+        1. Click <strong>Start Camera</strong> or
+        upload an image.
+        <br>
+        2. Place the sensor near the centre.
+        <br>
+        3. Capture the sensor.
+        <br>
+        4. SmartFresh analyses the image colour.
+        <br>
+        5. An experimental freshness indication is displayed.
+        `;
+
+    }
+
+
+    /* =====================================================
+       BLUE
+       ===================================================== */
+
+    if(
+        text.includes("blue") ||
+        text.includes("fresh")
+    ) {
+
+        return `
+        🔵 <strong>Dark Blue = Fresh</strong>
+        <br><br>
+
+        In the current SmartFresh experimental scale,
+        the dark bluish-purple / blue reference represents
+        the fresh condition.
+        <br><br>
+
+        Experimental freshness indication:
+        <strong>100%</strong>.
+        `;
+
+    }
+
+
+    /* =====================================================
+       PINK
+       ===================================================== */
+
+    if(
+        text.includes("pink") ||
+        text.includes("more spoilage") ||
+        text.includes("spoiling") ||
+        text.includes("beetroot")
+    ) {
+
+        return `
+        🟪 <strong>Pink / Beetroot = Increasing Spoilage</strong>
+        <br><br>
+
+        The experimental colour scale uses:
+        <br><br>
+
+        Reddish-pink → <strong>85% fresh</strong><br>
+        Beetroot / dark pink → <strong>50% fresh</strong>
+        <br><br>
+
+        These are prototype experimental calibration values.
+        `;
+
+    }
+
+
+    /* =====================================================
+       RED
+       ===================================================== */
+
+    if(
+        text.includes("red") ||
+        text.includes("spoiled") ||
+        text.includes("spoilage")
+    ) {
+
+        return `
+        🔴 <strong>Red = Spoilage</strong>
+        <br><br>
+
+        The experimental scale uses:
+        <br><br>
+
+        Dark red → <strong>20% fresh</strong><br>
+        Red → <strong>0% fresh</strong>
+        <br><br>
+
+        These are prototype experimental calibration values.
+        `;
+
+    }
+
+
+    /* =====================================================
+       RGB
+       ===================================================== */
+
+    if(
+        text.includes("rgb") ||
+        text.includes("colour") ||
+        text.includes("color")
+    ) {
+
+        return `
+        🎨 <strong>Colour analysis</strong>
+        <br><br>
+
+        SmartFresh uses RGB values to digitally represent
+        the detected colour in the uploaded or captured
+        sensor image.
+        <br><br>
+
+        The detected RGB value is compared with five
+        calibrated experimental colour references.
+        `;
+
+    }
+
+
+    /* =====================================================
+       SENSOR
+       ===================================================== */
+
+    if(
+        text.includes("sensor")
+    ) {
+
+        return `
+        🧪 <strong>SmartFresh sensor</strong>
+        <br><br>
+
+        The prototype uses a natural anthocyanin-based
+        colour indicator. Its visible colour response
+        is then interpreted digitally by the website.
+        <br><br>
+
+        The proposed natural-material pathway includes
+        blue pea processing as a source of anthocyanin-type
+        pigments.
+        `;
+
+    }
+
+
+    /* =====================================================
+       ANTHOCYANIN
+       ===================================================== */
+
+    if(
+        text.includes("anthocyanin")
+    ) {
+
+        return `
+        🌿 <strong>Anthocyanin</strong>
+        <br><br>
+
+        Anthocyanins are naturally occurring pigments found
+        in many plants.
+        <br><br>
+
+        For the SmartFresh concept, blue pea is explored
+        as a natural source of anthocyanin-type pigments.
+        <br><br>
+
+        Proposed pathway:
+        <strong>
+        Blue pea → Drying → Powder → Anthocyanin →
+        Colour indicator
+        </strong>
+        `;
+
+    }
+
+
+    /* =====================================================
+       PERCENTAGE
+       ===================================================== */
+
+    if(
+        text.includes("percentage") ||
+        text.includes("percent") ||
+        text.includes("%")
+    ) {
+
+        return `
+        📊 The current experimental SmartFresh scale uses
+        five reference freshness levels:
+        <br><br>
+
+        🔵 Dark Blue — <strong>100% fresh</strong><br>
+        🟣 Reddish-Pink — <strong>85% fresh</strong><br>
+        🩷 Beetroot / Dark Pink — <strong>50% fresh</strong><br>
+        🔴 Dark Red — <strong>20% fresh</strong><br>
+        🔴 Red — <strong>0% fresh</strong>
+        <br><br>
+
+        These are prototype experimental calibration values,
+        not a laboratory measurement of actual milk shelf life.
+        `;
+
+    }
+
+
+    /* =====================================================
+       SUSTAINABILITY
+       ===================================================== */
+
+    if(
+        text.includes("sustainable") ||
+        text.includes("sustainability") ||
+        text.includes("packaging")
+    ) {
+
+        return `
+        🌱 SmartFresh explores sustainable food packaging
+        by combining biodegradable packaging concepts,
+        natural colour sensing and digital analysis.
+        <br><br>
+
+        The concept also explores waste utilization through
+        pomegranate peel and its potential use as a pectin
+        source.
+        `;
+
+    }
+
+
+    /* =====================================================
+       HELP
+       ===================================================== */
+
+    if(
+        text.includes("help")
+    ) {
+
+        return `
+        😊 I can help you with:
+        <br><br>
+
+        • SmartFresh working principle<br>
+        • Blue pea and anthocyanin<br>
+        • Pomegranate peel waste utilization<br>
+        • Pectin extraction concept<br>
+        • PVA and glycerol<br>
+        • Biodegradable pouch concept<br>
+        • Sensor colours<br>
+        • RGB analysis<br>
+        • Camera scanner<br>
+        • Experimental freshness percentage
+        `;
+
+    }
+
+
+    /* =====================================================
+       DEFAULT
+       ===================================================== */
+
+    return `
+    😊 I'm the SmartFresh Assistant.
+    <br><br>
+
+    You can ask me about:
+    <strong>
+    blue pea, anthocyanin, pomegranate peel,
+    pectin, PVA, glycerol, biodegradable packaging,
+    scanner, sensor colours, RGB analysis,
+    freshness percentage or how SmartFresh works.
+    </strong>
+    `;
+
+}
+
+
+/* =========================================================
+   PROTECT CHAT FROM HTML IN USER INPUT
+   ========================================================= */
+
+function escapeChatText(text) {
+
+    const div =
+    document.createElement("div");
+
+
+    div.textContent =
+    text;
+
+
+    return div.innerHTML;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
