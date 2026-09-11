@@ -448,7 +448,7 @@ input {
 
 
 /* =========================================================
-   HERO SENSOR VISUAL
+   HERO Indicator VISUAL
    ========================================================= */
 
 .hero-visual {
@@ -550,7 +550,7 @@ input {
 
 
 /* =========================================================
-   SENSOR INFO
+   Indicator INFO
    ========================================================= */
 
 .sensor-info {
@@ -1990,7 +1990,7 @@ input {
 
 .scan-guide::after {
 
-    content: "PLACE SENSOR HERE";
+    content: "PLACE Indicator HERE";
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -3251,7 +3251,7 @@ Before you pour.
 
 <p class="lead">
 
-SmartFresh combines a natural colour-changing sensor
+SmartFresh combines a natural colour-changing Indicator
 with digital image analysis to provide a simple
 indication of milk freshness.
 
@@ -3281,7 +3281,7 @@ Explore the technology
 <div class="hero-points">
 
 <span>
-Natural sensor
+Natural Indicator
 </span>
 
 <span>
@@ -3394,7 +3394,7 @@ How SmartFresh Works
 
 SmartFresh combines biodegradable packaging with a natural
 anthocyanin-based colour indicator. As the condition of the
-milk changes, the sensor changes colour. The colour can then
+milk changes, the Indicator changes colour. The colour can then
 be analysed digitally to estimate the freshness category.
 
 </p>
@@ -3432,10 +3432,10 @@ Designed with sustainability in mind.
 
 <article
     class="tech-card"
-    data-tech="sensor"
+    data-tech="Indicator"
     tabindex="0"
     role="button"
-    aria-label="Learn about the natural sensor"
+    aria-label="Learn about the natural Indicator"
 >
 
 <div class="tech-number">
@@ -3443,7 +3443,7 @@ Designed with sustainability in mind.
 </div>
 
 <h3>
-Natural Sensor
+Natural Indicator
 </h3>
 
 <p>
@@ -3576,7 +3576,7 @@ From biological response to digital insight.
 
 <p>
 SmartFresh connects a natural colour indicator with
-image-based analysis to transform a visible sensor
+image-based analysis to transform a visible Indicator
 response into an understandable freshness indication.
 </p>
 
@@ -3632,7 +3632,7 @@ Milk Condition
 <p>
 The condition of milk changes over time.
 These changes provide the basis for the
-sensor response monitored by SmartFresh.
+Indicator response monitored by SmartFresh.
 </p>
 
 
@@ -3665,7 +3665,7 @@ Sensing
 
 
 <h3>
-Natural Colour Sensor
+Natural Colour Indicator
 </h3>
 
 
@@ -3789,7 +3789,7 @@ Freshness Classification
 </h3>
 
 <p>
-The detected sensor colour is matched with
+The detected Indicator colour is matched with
 the prototype reference scale to generate
 an experimental freshness indication.
 </p>
@@ -3897,7 +3897,7 @@ Colour transition
 
 <p>
 
-The sensor response moves through the calibrated
+The Indicator response moves through the calibrated
 blue, pink and red reference range.
 
 </p>
@@ -3921,7 +3921,7 @@ Image capture
 
 <p>
 
-The sensor can be photographed using a device
+The Indicator can be photographed using a device
 camera or an uploaded image.
 
 </p>
@@ -3987,7 +3987,7 @@ Check your SmartFresh sensor.
 
 <p>
 
-Capture the sensor with your camera or upload an image.
+Capture the Indicator with your camera or upload an image.
 The prototype will analyse the colour response.
 
 </p>
@@ -4004,7 +4004,7 @@ The prototype will analyse the colour response.
 <div class="scanner-header">
 
 <h3>
-Sensor scanner
+Indicator scanner
 </h3>
 
 <div class="scanner-status" id="scannerStatus">
@@ -4043,7 +4043,7 @@ playsinline>
 
 <img
 id="capturedImage"
-alt="Captured SmartFresh sensor">
+alt="Captured SmartFresh Indicator">
 
 
 <div
@@ -4078,7 +4078,7 @@ class="primary-button"
 id="captureButton"
 style="display:none;">
 
-Capture Sensor
+Capture Indicator
 
 </button>
 
@@ -4137,7 +4137,7 @@ Follow these simple steps when capturing the sensor.
 <div>
 
 <strong>
-Keep the sensor visible
+Keep the Indicator visible
 </strong>
 
 <p>
@@ -4207,12 +4207,12 @@ Hold the device still while capturing the image.
 <div>
 
 <strong>
-Centre the sensor
+Centre the Indicator
 </strong>
 
 <p>
 
-Place the sensor near the guide area
+Place the Indicator near the guide area
 for a consistent reading.
 
 </p>
@@ -4298,7 +4298,7 @@ Prototype freshness indication
 
 <p id="resultDescription">
 
-Detected sensor colour:
+Detected Indicator colour:
 
 </p>
 
@@ -4568,7 +4568,7 @@ sustainable food packaging.
             <br><br>
 
             I can help you understand the SmartFresh
-            sensor, scanner and freshness results.
+            Indicator, scanner and freshness results.
 
         </div>
 
@@ -4772,11 +4772,11 @@ const technologyInformation = {
     },
 
 
-    sensor: {
+    Indicator: {
 
         icon: "🧪",
 
-        title: "Natural Sensor",
+        title: "Natural Indicator",
 
         intro:
         "The SmartFresh indicator uses natural colour-changing compounds to create a visible response that can be interpreted by the user and analysed digitally.",
@@ -4819,7 +4819,7 @@ const technologyInformation = {
                 Pomegranate peel can be cut and dried before further
                 processing. The peel is also explored for pectin
                 recovery, providing a waste-utilization pathway
-                alongside the sensor and packaging concept.
+                alongside the Indicator and packaging concept.
                 </p>
 
             </div>
@@ -4920,7 +4920,7 @@ const technologyInformation = {
                 <strong>Digital analysis pathway</strong>
 
                 <span>
-                Sensor → Camera / Upload → Image → RGB values →
+                Indicator → Camera / Upload → Image → RGB values →
                 Reference comparison → Experimental freshness result
                 </span>
 
@@ -6001,7 +6001,7 @@ function displayResult(
 
 
     resultDescription.textContent =
-    "Detected sensor colour: " +
+    "Detected Indicator colour: " +
     result.description;
 
 
@@ -6302,7 +6302,7 @@ function getSmartFreshResponse(message) {
         👋 Hello! I'm the SmartFresh Assistant.
         <br><br>
         Ask me anything about the SmartFresh
-        sensor, materials, colour detection,
+        Indicator, materials, colour detection,
         packaging or freshness scanner.
         `;
 
@@ -6507,7 +6507,7 @@ function getSmartFreshResponse(message) {
         <br><br>
 
         <strong>
-        Natural materials → Sensor → Colour change →
+        Natural materials → Indicator → Colour change →
         Camera → RGB analysis → Freshness indication
         </strong>
         <br><br>
@@ -6537,7 +6537,7 @@ function getSmartFreshResponse(message) {
         1. Click <strong>Start Camera</strong> or
         upload an image.
         <br>
-        2. Place the sensor near the centre.
+        2. Place the Indicator near the centre.
         <br>
         3. Capture the sensor.
         <br>
@@ -6645,7 +6645,7 @@ function getSmartFreshResponse(message) {
 
         SmartFresh uses RGB values to digitally represent
         the detected colour in the uploaded or captured
-        sensor image.
+        Indicator image.
         <br><br>
 
         The detected RGB value is compared with five
@@ -6656,15 +6656,15 @@ function getSmartFreshResponse(message) {
 
 
     /* =====================================================
-       SENSOR
+       Indicator
        ===================================================== */
 
     if(
-        text.includes("sensor")
+        text.includes("Indicator")
     ) {
 
         return `
-        🧪 <strong>SmartFresh sensor</strong>
+        🧪 <strong>SmartFresh Indicator</strong>
         <br><br>
 
         The prototype uses a natural anthocyanin-based
@@ -6781,7 +6781,7 @@ function getSmartFreshResponse(message) {
         • Pectin extraction concept<br>
         • PVA and glycerol<br>
         • Biodegradable pouch concept<br>
-        • Sensor colours<br>
+        • Indicator colours<br>
         • RGB analysis<br>
         • Camera scanner<br>
         • Experimental freshness percentage
@@ -6802,7 +6802,7 @@ function getSmartFreshResponse(message) {
     <strong>
     blue pea, anthocyanin, pomegranate peel,
     pectin, PVA, glycerol, biodegradable packaging,
-    scanner, sensor colours, RGB analysis,
+    scanner, Indicator colours, RGB analysis,
     freshness percentage or how SmartFresh works.
     </strong>
     `;
